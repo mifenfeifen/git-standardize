@@ -1,2 +1,1 @@
-^(feat|fix|docs|style|refactor|perf|test)\(([a-zA-Z]+)\):.+$
-
+^(feat|fix|refactor|docs|style|test|perf)\(([a-zA-Z]+)\):.+$
