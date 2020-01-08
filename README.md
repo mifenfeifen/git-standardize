@@ -1,13 +1,32 @@
-# Git工程化实践
+- [引子](#%e5%bc%95%e5%ad%90)
+- [Git工程化实践](#git%e5%b7%a5%e7%a8%8b%e5%8c%96%e5%ae%9e%e8%b7%b5)
+  - [信息配置](#%e4%bf%a1%e6%81%af%e9%85%8d%e7%bd%ae)
+    - [用户信息配置](#%e7%94%a8%e6%88%b7%e4%bf%a1%e6%81%af%e9%85%8d%e7%bd%ae)
+    - [远程信息配置](#%e8%bf%9c%e7%a8%8b%e4%bf%a1%e6%81%af%e9%85%8d%e7%bd%ae)
+  - [.gitignore](#gitignore)
+  - [GitHook配置](#githook%e9%85%8d%e7%bd%ae)
+- [细则讲解](#%e7%bb%86%e5%88%99%e8%ae%b2%e8%a7%a3)
+  - [分支规范](#%e5%88%86%e6%94%af%e8%a7%84%e8%8c%83)
+  - [commit 规范](#commit-%e8%a7%84%e8%8c%83)
+  - [Git Alias](#git-alias)
+    - [oh-my-zsh](#oh-my-zsh)
+    - [GitBash](#gitbash)
+    - [GitAlias](#gitalias)
+    - [辅助命令封装](#%e8%be%85%e5%8a%a9%e5%91%bd%e4%bb%a4%e5%b0%81%e8%a3%85)
 
-## 引子
+
+# 引子
 本repo基于 [git-standardize](https://github.com/vimerzhao/git-standardize) 修改，旨在更好地在实践中使用Git
+* 操作直接看 [Git工程化实践](#git%e5%b7%a5%e7%a8%8b%e5%8c%96%e5%ae%9e%e8%b7%b5) 章节
+* 原理可看 [细则讲解](#%e7%bb%86%e5%88%99%e8%ae%b2%e8%a7%a3) 章节，再辅以参考资料
 
 其他参考资料：
 * [Git原理剖析](https://github.com/vimerzhao/vimerzhao.github.io/blob/master/dev-tools/2019-11-26-git-internals.adoc)
 * [工作流管理](https://nvie.com/posts/a-successful-git-branching-model)
 * [commit规范](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines)
 
+
+# Git工程化实践
 ## 信息配置
 使用 `git config` 配置必须要的用户信息
 * `--local`: 本repo设置，级别最高  (默认)
