@@ -6,7 +6,7 @@
   - [.gitignore](#gitignore)
   - [GitHook配置](#githook%e9%85%8d%e7%bd%ae)
 - [细则讲解](#%e7%bb%86%e5%88%99%e8%ae%b2%e8%a7%a3)
-  - [分支规范](#%e5%88%86%e6%94%af%e8%a7%84%e8%8c%83)
+  - [branch 使用规范](#branch-%e4%bd%bf%e7%94%a8%e8%a7%84%e8%8c%83)
   - [commit 规范](#commit-%e8%a7%84%e8%8c%83)
   - [Git Alias](#git-alias)
     - [oh-my-zsh](#oh-my-zsh)
@@ -76,7 +76,7 @@ git config core.hooksPath .githooks
 ```
 
 # 细则讲解
-## 分支规范
+## branch 使用规范
 主要参考该文章：https://nvie.com/posts/a-successful-git-branching-model
 * 以 `master` 和 `develop` 为主要分支
 * 不同分支之间，要勤于反复合并，避免以后的冲突
@@ -108,10 +108,11 @@ git config core.hooksPath .githooks
   - 分支命名细则: `feature-creator-description`
 
 ## commit 规范
-
 参考 [angular.js commit规范](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines)
 * commit 粒度要小，方便 review
 * 在 commit 信息中写明操作内容，方便后续管理和查看
+
+> 键入`git commit`后enter，即可通过editor编辑msg（默认是`vi`）
 
 ```shell
 <type>(<scope>):<subject>  # <1> <2> <3>
@@ -121,18 +122,18 @@ git config core.hooksPath .githooks
 <footer>  # <5>
 ```
 1. `type`: 本次改动的类型
-  * `feat`: 添加新特性
-  * `fix`: 修复bug
-  * `refactor`: 代码重构，没有加新功能或者修复bug
-  * `docs`: 仅仅修改了文档
-  * `style`: 仅仅修改了空格、格式缩进、都好等等，不改变代码逻辑
-  * `chore`: 改变构建流程、或者增加依赖库、工具等
-  * `perf`: 增加代码进行性能测试
-  * `test`: 增加测试用例
+   * `feat`: 添加新特性
+   * `fix`: 修复bug
+   * `refactor`: 代码重构，没有加新功能或者修复bug
+   * `docs`: 仅仅修改了文档
+   * `style`: 仅仅修改了空格、格式缩进、都好等等，不改变代码逻辑
+   * `chore`: 改变构建流程、或者增加依赖库、工具等
+   * `perf`: 增加代码进行性能测试
+   * `test`: 增加测试用例
 2. `scope`:本次改动影响的范围，建议每个工程划分好自己的模块，方便填写
-  * `$`: 模块
-  * `.`: 当前文件
-  * `*`: 多个文件
+   * `$MODULE` : 模块
+   * `.` : 当前文件
+   * `*` : 多个文件
 3. `subject`: 本次改动的简要描述，一般写这个就够了
 4. `body`: 更详细的改动说明
 5. `footer`: 描述下与之关联的 issue 或 break change，一般不使用
