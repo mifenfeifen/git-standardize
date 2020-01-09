@@ -6,8 +6,12 @@
   - [.gitignore](#gitignore)
   - [GitHook配置](#githook%e9%85%8d%e7%bd%ae)
 - [细则讲解](#%e7%bb%86%e5%88%99%e8%ae%b2%e8%a7%a3)
-  - [branch 使用规范](#branch-%e4%bd%bf%e7%94%a8%e8%a7%84%e8%8c%83)
+  - [branch 命名规范](#branch-%e5%91%bd%e5%90%8d%e8%a7%84%e8%8c%83)
+  - [branch 操作规范](#branch-%e6%93%8d%e4%bd%9c%e8%a7%84%e8%8c%83)
+    - [合并流程：](#%e5%90%88%e5%b9%b6%e6%b5%81%e7%a8%8b)
   - [commit 规范](#commit-%e8%a7%84%e8%8c%83)
+    - [commit msg规范](#commit-msg%e8%a7%84%e8%8c%83)
+    - [commit 粒度](#commit-%e7%b2%92%e5%ba%a6)
   - [Git Alias](#git-alias)
     - [oh-my-zsh](#oh-my-zsh)
     - [GitBash](#gitbash)
@@ -76,19 +80,20 @@ git config core.hooksPath .githooks
 ```
 
 # 细则讲解
-## branch 使用规范
-主要参考该文章：https://nvie.com/posts/a-successful-git-branching-model
+## branch 命名规范
+个人开发时，主要使用[Git-Workflow](https://nvie.com/posts/a-successful-git-branching-model)
 * 以 `master` 和 `develop` 为主要分支
-* 不同分支之间，要勤于反复合并，避免以后的冲突
 * 完成任务的分支，要及时删除
-![workflow](https://nvie.com/img/git-model@2x.png)
+* （[不同工作流的差别](https://blog.csdn.net/qq_32452623/article/details/78905181)）
+
+![git-workflow-pic](https://nvie.com/img/git-model@2x.png)
 
 只允许使用以下分支命名项目
 
 * `master`
   - 主分支（用于部署生产环境的分支）：确保 `master` 分支稳定性，任何时间都**不能直接在该分支修改代码**
   - 利用tag进行标示：三段式 `A.B.C` ： `A` 为大版本号，不随意改动； `B` 为小版本号，用于功能迭代； `C` 为线上问题修复版本号
-* `develop`
+* `develop`/`dev`
   - 日常开发分支
 * `refactor`
   - 试验性重构代码
@@ -103,13 +108,34 @@ git config core.hooksPath .githooks
 * `hotfix`
   - 线上出现紧急问题时，需要及时修复，以 `master` 分支为基线，创建 `hotfix` 分支，修复完成后，需要合并到 `master` 分支和 `develop` 分支
   - 分支命名细则: `hotfix-creator-description`
-* `feature`
+* `feature`/`topic`
   - 开发新功能时，以 `develop` 为基础创建 `feature` 分支
   - 分支命名细则: `feature-creator-description`
 
+## branch 操作规范
+git 中合并不同分支主要有两种方法：
+* `merge`
+  - fast-forward: （默认）直接移动`HEAD`指针到最新的提交，从commit history无法体现merge
+  - recursive strategy: 非快进式合并：`git merge --no-ff`
+* `rebase`: 修改commit历史，变为**线性提交历史**，无分叉
+  - 会改变分支 branch out 节点
+  - 线性，但不严格按时间线
+  - **不要对多人开发的分支进行rebase**，极易引发冲突
+
+> **不同分支之间，要勤于反复合并，避免以后的冲突**
+>
+> 注意`cherry-pick`的使用，可以减少反复合并，避免污染 commit history
+
+### 合并流程：
+1. 更新`develop`到最新（从remote中`pull`最新的代码）
+2. 将本地`feature`分支通过`git rebase dev`合并dev并整理成线性 commit history
+3. 切换到`dev`分支，`git merge --no-ff feature`合并
+
+> PS: 主要是为了梳理feature里的各种merge —— 如果feature没有merge，可以跳过rebase
+
 ## commit 规范
+### commit msg规范
 参考 [angular.js commit规范](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines)
-* commit 粒度要小，方便 review
 * 在 commit 信息中写明操作内容，方便后续管理和查看
 
 > 键入`git commit`后enter，即可通过editor编辑msg（默认是`vi`）
@@ -137,6 +163,14 @@ git config core.hooksPath .githooks
 3. `subject`: 本次改动的简要描述，一般写这个就够了
 4. `body`: 更详细的改动说明
 5. `footer`: 描述下与之关联的 issue 或 break change，一般不使用
+
+### commit 粒度
+commit 粒度要合适，方便 review
+* `git commit --amend -C head`: 提交到上次提交中（不生成新的commit对象）
+  - `-C head`指复用head指向的commit中的msg，不添加可重写
+* `git rebase -i`: 通过交互式rebase，事后整理 commit history
+  - https://git-scm.com/docs/git-rebase
+
 
 ## Git Alias
 别名在类Unix系统中普遍存在，即将我们最常用的命令设置一个更短更容易记住的别名，以提高使用效率。

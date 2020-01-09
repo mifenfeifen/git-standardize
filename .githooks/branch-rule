@@ -1,1 +1,1 @@
-^(master|hotfix|release|develop|feature|refactor)[a-zA-Z0-9-]*$
+^(master|hotfix|release|develop|dev|feature|topic|refactor)[a-zA-Z0-9-]*$
