@@ -8,15 +8,16 @@
 - [细则讲解](#%e7%bb%86%e5%88%99%e8%ae%b2%e8%a7%a3)
   - [branch 命名规范](#branch-%e5%91%bd%e5%90%8d%e8%a7%84%e8%8c%83)
   - [branch 操作规范](#branch-%e6%93%8d%e4%bd%9c%e8%a7%84%e8%8c%83)
-    - [合并流程：](#%e5%90%88%e5%b9%b6%e6%b5%81%e7%a8%8b)
+    - [合并流程](#%e5%90%88%e5%b9%b6%e6%b5%81%e7%a8%8b)
   - [commit 规范](#commit-%e8%a7%84%e8%8c%83)
     - [commit msg规范](#commit-msg%e8%a7%84%e8%8c%83)
     - [commit 粒度](#commit-%e7%b2%92%e5%ba%a6)
-  - [Git Alias](#git-alias)
-    - [oh-my-zsh](#oh-my-zsh)
+- [Git Alias](#git-alias)
+  - [开源的 alias 规范](#%e5%bc%80%e6%ba%90%e7%9a%84-alias-%e8%a7%84%e8%8c%83)
+    - [zsh](#zsh)
     - [GitBash](#gitbash)
     - [GitAlias](#gitalias)
-    - [辅助命令封装](#%e8%be%85%e5%8a%a9%e5%91%bd%e4%bb%a4%e5%b0%81%e8%a3%85)
+  - [辅助命令封装](#%e8%be%85%e5%8a%a9%e5%91%bd%e4%bb%a4%e5%b0%81%e8%a3%85)
 
 
 # 引子
@@ -25,7 +26,7 @@
 * 原理可看 [细则讲解](#%e7%bb%86%e5%88%99%e8%ae%b2%e8%a7%a3) 章节，再辅以参考资料
 
 其他参考资料：
-* [Git原理剖析](https://github.com/vimerzhao/vimerzhao.github.io/blob/master/dev-tools/2019-11-26-git-internals.adoc)
+* [Git对象介绍](https://github.com/vimerzhao/vimerzhao.github.io/blob/master/dev-tools/2019-11-26-git-internals.adoc)
 * [工作流管理](https://nvie.com/posts/a-successful-git-branching-model)
 * [commit规范](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines)
 
@@ -126,7 +127,7 @@ git 中合并不同分支主要有两种方法：
 >
 > 注意`cherry-pick`的使用，可以减少反复合并，避免污染 commit history
 
-### 合并流程：
+### 合并流程
 1. 更新`develop`到最新（从remote中`pull`最新的代码）
 2. 将本地`feature`分支通过`git rebase dev`合并dev并整理成线性 commit history
 3. 切换到`dev`分支，`git merge --no-ff feature`合并
@@ -172,12 +173,13 @@ commit 粒度要合适，方便 review
   - https://git-scm.com/docs/git-rebase
 
 
-## Git Alias
+# Git Alias
 别名在类Unix系统中普遍存在，即将我们最常用的命令设置一个更短更容易记住的别名，以提高使用效率。
 * 省力省心，开源社区长期优化的配置大概率比我们自己折腾的更加科学和健壮
-* 通用性强，任何一个使用 oh-my-zsh 的用户和你的别名习惯都是一致的，便于交流
+* 通用性强，任何一个使用 zsh 的用户和你的别名习惯都是一致的，便于交流
 
-### oh-my-zsh
+## 开源的 alias 规范
+### zsh
 zsh的 `git` 插件提供了一套别名，推荐使用，避免重复造轮子
 * [文档 git-cheatsheet](https://github.com/robbyrussell/oh-my-zsh/wiki/Cheatsheet#git)
 * [配置 git.plugin.zsh](https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/git/git.plugin.zsh)
@@ -230,7 +232,7 @@ source git.alias.config.sh
 rm temp*
 ```
 
-### 辅助命令封装
+## 辅助命令封装
 所有的辅助命令均以 `gs_` 开头，这样的好处是可以利用 `Tab` 键的补全机制自动选择命令，避免冗长难记的输入
 * `gs_clear_local_barnch` ：清理本地存在但是服务器端不存在的分支 +
 * `gs_branch_last_commit` ：查看分支最后提交人和存活周期，辅助删除过期分支
